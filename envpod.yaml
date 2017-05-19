@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: envpod
+spec:
+  containers:
+    - name: environment-configuration
+      ports:
+        - containerPort: 8778
+          protocol: TCP
+      resources:
+        limits:
+          memory: 500Mi
+        requests:
+          memory: 500Mi
+    env:
+      - name: USER_NAME
+        valueFrom:
+          secretKeyRef:
+            name: env-secret
+            key: username
+      - name: PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: env-secret
+            key: password
+
